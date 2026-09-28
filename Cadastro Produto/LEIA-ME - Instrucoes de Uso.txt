@@ -1,0 +1,75 @@
+================================================================
+CADASTRO DE PRODUTOS - WINDOWS FORMS + MYSQL
+================================================================
+
+PASSO A PASSO PARA USAR O PROJETO:
+
+1. CONFIGURAR O BANCO DE DADOS:
+   - Abra o MySQL Workbench (ou phpMyAdmin)
+   - Execute o arquivo "Script_Banco_Dados.sql"
+   - Isso vai criar o banco "cadastro_produtos", a tabela "produtos" e inserir 3 produtos de exemplo
+
+2. CONFIGURAR A CONEXAO NO CODIGO:
+   - Abra o arquivo "Form1.cs"
+   - Na linha 18, altere a "stringConexao" com os dados do seu MySQL:
+     * server = endereco do servidor (geralmente localhost)
+     * database = cadastro_produtos
+     * uid = seu usuario (geralmente root)
+     * pwd = sua senha do MySQL
+
+3. ABRIR O PROJETO NO VISUAL STUDIO:
+   - Abra o arquivo "Cadastro Produto.slnx" no Visual Studio 2022 (ou superior)
+   - Restaure os pacotes NuGet (o MySql.Data sera baixado automaticamente)
+   - Compile e execute o projeto (F5)
+
+================================================================
+TESTE DE CADA BOTAO:
+================================================================
+
+[PROCURAR]
+- Digite um codigo interno no campo "Codigo interno" (ex: P001)
+- Clique em PROCURAR
+- Resultado: Todos os campos serao preenchidos com os dados do produto encontrado
+- Se digitar um codigo que nao existe, aparece a mensagem "Produto nao encontrado!"
+
+[INSERIR]
+- Preencha todos os campos: Codigo interno (novo, ex: P004), Codigo de barra, Descricao, Quantidade, Preco de Custo, Preco de Venda
+- (Opcional) De dois cliques na area da foto para selecionar uma imagem do produto
+- Clique em INSERIR
+- Resultado: Mensagem de sucesso, campos sao limpos, e o DataGridView atualiza mostrando o novo produto
+- Se tentar inserir um codigo interno ja existente, aparece erro de duplicidade
+
+[ATUALIZAR]
+- Clique em uma linha do DataGridView (ou procure um produto pelo codigo)
+- Altere algum dado (ex: mude o preco de venda ou a quantidade)
+- Clique em ATUALIZAR
+- Resultado: Mensagem de sucesso, campos limpos, DataGridView atualizado com os novos valores
+
+[DELETAR]
+- Selecione um produto (clicando no DataGridView ou procurando pelo codigo)
+- Clique em DELETAR
+- Uma mensagem de confirmacao aparece: clique em SIM para confirmar
+- Resultado: Produto excluido, DataGridView atualizado sem o produto removido
+
+================================================================
+FUNCIONALIDADES EXTRAS:
+================================================================
+
+- PRECO TOTAL AUTOMATICO: Ao digitar Quantidade e Preco de Venda, o Preco Total e calculado automaticamente (quantidade x preco de venda)
+
+- FOTO DO PRODUTO: De DOIS CLIQUES na area cinza "Foto do produto" para abrir uma janela e selecionar uma imagem do seu computador
+
+- CLIQUE NO DATAGRIDVIEW: Ao clicar em qualquer linha da tabela "Produtos cadastrados", todos os campos do formulario sao preenchidos automaticamente
+
+- ATUALIZACAO AUTOMATICA: O DataGridView atualiza automaticamente a cada 30 segundos, e tambem imediatamente apos qualquer operacao (inserir, atualizar, deletar)
+
+- FECHAMENTO DE CONEXAO: Todas as conexoes com o banco sao fechadas automaticamente apos cada operacao (mesmo se ocorrer erro), atraves do bloco "finally"
+
+- TRATAMENTO DE ERROS: Todas as excecoes sao capturadas e exibidas em mensagens amigaveis (erro de conexao, campo invalido, codigo duplicado, etc)
+
+================================================================
+OBSERVACOES:
+================================================================
+- O campo "Preco de Total" e somente leitura (nao pode ser digitado, pois e calculado)
+- A foto e armazenada como CAMINHO do arquivo no banco (recomendado). O arquivo da foto fica no seu computador.
+- Se mover a foto de pasta, o caminho salvo no banco nao sera mais valido. Recomenda-se criar uma pasta fixa para as fotos (ex: C:\FotosProdutos\)
